@@ -1,0 +1,164 @@
+MESSAGE KUTUSU 
+iframe
+I.switchTo("//iframe[@id='bafexplorer]");
+kullanır.
+
+PAGE NESNESİ OLUŞTURMA
+npx codeceptjs gpo
+
+kimlik numarası üreten hazır paket
+
+npm i tcidgen
+
+KİMLİK NO ÜRETME FOKSİYONU
+
+/generateTCKimlikNo:function(){
+cons generateTCKN=require('tcidgen');
+return tckn=generateTCKN();
+}
+//HASTA KABUL KISMI
+I.switchTo('[src*="../pattientAdmisson/objectViewers/Patientadmission/patientadmissionviewer.htm"]');
+I.waitForElement('//input[@id='edtPatientSearch']');
+I.fillField('//input[@id="edtPatientSearch"]');
+I.presskey('Enter');
+pause();
+
+I.waitForElement('//span[contains=(text(),"Hasta Bulunamadı.")]');
+I.waitForElement('//button[text()="Evet"]');
+I.cilick('//button[text()="Evet"]');
+
+I.waitForElement('//span[contains=(text(),"Belirtilen adresi kullanmak istiyormusunuz?")]');
+I.waitForElement('//button[text()="Evet"]');
+I.cilick('//button[text()="Evet"]');
+
+
+I.waitForElement('#cmbInstutionID');
+I.fiilField('#cmbInstutionID','1');
+
+I.waitForElement('#edtCEllPhone');
+I.fiilField('#edtCEllPhone','11111111111');
+
+I.waitForElement('#cmbWorkingStatus');
+I.click('#cmbWorkingStatus');
+I.pressKey('Enter');
+
+
+//kabul alma
+
+I.waitForElement('#cmbBuildingID');
+I.fiilField('#cmbBuildingID','M;ERKEZ');
+I.pressKey('Enter');
+
+I.waitForElement('#cmbSendUnitID');
+I.fiilField('#cmbSendUnitID','ACİL YEŞİL ALAN');
+I.pressKey('Enter');
+
+I.waitForElement('#cmbSendDoctorID');
+I.fiilField('#cmbSendDoctorID','Mk');
+I.pressKey('Enter');
+
+
+//Kaydetme işlemi
+I.waitForElement('#smallSaveButton');
+
+I.pressKey('smallSaveButton');
+
+
+
+
+
+
+
+//kabul kontrol
+I.waitForElement('.x-grid3-row.x-grid3-row-collapsed.x-grid3-row-first.x-grid3-row-last.x-grid-row');
+I.seeElement('.x-grid3-row.x-grid3-row-collapsed.x-grid3-row-first.x-grid3-row-last.x-grid-row');
+
+PAGE OLUŞTURMA
+npx codeceptjs gpo
+kayıtkabul.js
+CONFİG DOSYASINA EKLEME
+kayıtKabulPage:'./pages/kayıtKabul.js',
+
+SCENARİO EKLE
+kayıtKabulPage
+fields:{}
+selects:{}
+buttons:{}
+hastaAra:function(){
+I.switchTo('[src*="../pattientAdmisson/objectViewers/Patientadmission/patientadmissionviewer.htm"]');
+I.waitForElement('//input[@id='edtPatientSearch']');
+I.fillField('//input[@id="edtPatientSearch"]');
+console.log(I.generateTCKimlikNo());
+I.presskey('Enter');
+I.wait(1);
+
+},
+hastaKayıt:function(){
+I.waitForElement('//span[contains=(text(),"Hasta Bulunamadı.")]');
+I.waitForElement('//button[text()="Evet"]');
+I.cilick('//button[text()="Evet"]');
+
+I.waitForElement('//span[contains=(text(),"Belirtilen adresi kullanmak istiyormusunuz?")]');
+I.waitForElement('//button[text()="Evet"]');
+I.cilick('//button[text()="Evet"]');
+
+
+I.waitForElement('#cmbInstutionID');
+I.fiilField('#cmbInstutionID','1');
+
+I.waitForElement('#edtCEllPhone');
+I.fiilField('#edtCEllPhone','11111111111');
+
+I.waitForElement('#cmbWorkingStatus');
+I.click('#cmbWorkingStatus');
+I.pressKey('Enter');
+},
+
+kabulAlma:function(){
+I.waitForElement('#cmbBuildingID');
+I.fiilField('#cmbBuildingID','M;ERKEZ');
+I.pressKey('Enter');
+
+I.waitForElement('#cmbSendUnitID');
+I.fiilField('#cmbSendUnitID','ACİL YEŞİL ALAN');
+I.pressKey('Enter');
+
+I.waitForElement('#cmbSendDoctorID');
+I.fiilField('#cmbSendDoctorID','Mk');
+I.pressKey('Enter');
+},
+
+kayıtEtme:function(){
+I.waitForElement('#smallSaveButton');
+
+I.pressKey('smallSaveButton');
+}
+
+HASTAKABULTEST
+await girişPagePage.mesajKutusunuKapat();
+kayıtKabulPage.kayıtKabulEkranıAc();
+kayıtKabulPage.hastaAra();
+kayıtKabulPage.hastaKayıt();
+kayıtKabulPage.kabulAlma();
+kayıtKabulPage.kayıtEtme();
+
+FRAGMENT OLUTURMA
+ilk önce proje içine dosya aç fragment isminde
+sonra;
+npx codeceptjs go --type fragment
+
+FRAGMENT İÇİ
+fields:{
+hastaAramaAlani:'//input[@id='edtPatientSearch'
+},
+selects{},
+buttons{},
+hastaArama:function(){
+I.switchTo('[src*="../pattientAdmisson/objectViewers/Patientadmission/patientadmissionviewer.htm"]');
+I.waitForElement('//input[@id='edtPatientSearch']');
+I.fillField('//input[@id="edtPatientSearch"]');
+console.log(I.generateTCKimlikNo());
+I.presskey('Enter');
+I.wait(1);
+
+}
